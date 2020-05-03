@@ -27,15 +27,20 @@ void MyDisplay() {
     
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(0.5, 0.4, 0.3);
+    glBegin(GL_LINES);
     
-    glBegin(GL_POLYGON);
-    glVertex3f(0.0, 1.0, 0.0);
-    glVertex3f(-1.0, 0.5, 0.0);
-    glVertex3f(-1.0, -0.5, 0.0);
-    glVertex3f(0.0, -1.0, 0.0);
-    glVertex3f(1.0, -0.5, 0.0);
-    glVertex3f(1.0, 0.5, 0.0);
+    glVertex3f(1.0, 1.0, 0.0);
+    glVertex3f(-1.0, 1.0, 0.0);
     
+    glVertex3f(-1.0, 1.0, 0.0);
+    glVertex3f(-1.0, -1.0, 0.0);
+    
+    glVertex3f(-1.0, -1.0, 0.0);
+    glVertex3f(1.0, -1.0, 0.0);
+    
+    glVertex3f(1.0, -1.0, 0.0);
+    glVertex3f(1.0, 1.0, 0.0);
+
     
     glEnd();
     
