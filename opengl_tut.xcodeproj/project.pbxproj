@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		524FEFE5245AE5720096BFAE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 524FEFE4245AE5720096BFAE /* main.cpp */; };
+		524FEFED245AEBF10096BFAE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 524FEFEC245AEBF10096BFAE /* OpenGL.framework */; };
+		524FEFF1245AEC2A0096BFAE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 524FEFF0245AEC2A0096BFAE /* GLUT.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,9 @@
 /* Begin PBXFileReference section */
 		524FEFE1245AE5720096BFAE /* opengl_tut */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = opengl_tut; sourceTree = BUILT_PRODUCTS_DIR; };
 		524FEFE4245AE5720096BFAE /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		524FEFEC245AEBF10096BFAE /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		524FEFEE245AEC0F0096BFAE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		524FEFF0245AEC2A0096BFAE /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +37,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				524FEFF1245AEC2A0096BFAE /* GLUT.framework in Frameworks */,
+				524FEFED245AEBF10096BFAE /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +50,7 @@
 			children = (
 				524FEFE3245AE5720096BFAE /* opengl_tut */,
 				524FEFE2245AE5720096BFAE /* Products */,
+				524FEFEB245AEBF10096BFAE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +68,16 @@
 				524FEFE4245AE5720096BFAE /* main.cpp */,
 			);
 			path = opengl_tut;
+			sourceTree = "<group>";
+		};
+		524FEFEB245AEBF10096BFAE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				524FEFF0245AEC2A0096BFAE /* GLUT.framework */,
+				524FEFEE245AEC0F0096BFAE /* Cocoa.framework */,
+				524FEFEC245AEBF10096BFAE /* OpenGL.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -88,7 +106,7 @@
 		524FEFD9245AE5720096BFAE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "YongJoon Kim";
 				TargetAttributes = {
 					524FEFE0245AE5720096BFAE = {
@@ -238,6 +256,7 @@
 		524FEFE9245AE5720096BFAE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -246,6 +265,7 @@
 		524FEFEA245AE5720096BFAE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
