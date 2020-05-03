@@ -23,19 +23,25 @@
 #include <math.h>
 
 void MyDisplay() {
-    const double Pi  =3.141592653589793238463;
-    GLfloat Size[2], Angle;
+    
     
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.0, 0.0, 0.0);
-    glGetFloatv(GL_POINT_SIZE_RANGE, Size);
-    glPointSize(Size[0] * 5);
-    glBegin(GL_POINTS);
-        for (Angle = 0.0; Angle <= 2.0 * Pi; Angle += Pi/3000.0)
-            glVertex3f(0.5*cos(Angle), 0.5*sin(Angle), 0.0);
+    glColor3f(0.5, 0.4, 0.3);
+    
+    glBegin(GL_POLYGON);
+    glVertex3f(0.0, 1.0, 0.0);
+    glVertex3f(-1.0, 0.5, 0.0);
+    glVertex3f(-1.0, -0.5, 0.0);
+    glVertex3f(0.0, -1.0, 0.0);
+    glVertex3f(1.0, -0.5, 0.0);
+    glVertex3f(1.0, 0.5, 0.0);
+    
+    
     glEnd();
+    
+    
+    
     glutSwapBuffers();
-
     glFlush();
 
 }
@@ -48,6 +54,7 @@ int main(int argc, char * argv[]) {
     glutInitWindowPosition(100, 100);
     glutCreateWindow("GLUT Sample");
     glClearColor(1.0, 1.0, 1.0, 1.0);
+    glOrtho(-2.0, 2.0, -2.0, 2.0, -2.0, 2.0);
     glutDisplayFunc(MyDisplay);
     glutMainLoop();
     return 0;
