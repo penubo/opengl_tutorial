@@ -54,21 +54,46 @@ GLubyte MyVertexList[24] = {
     0, 1, 5, 4
 };
 
+
+// Quadrics object
+GLUquadricObj *qobj = gluNewQuadric();
+
+const GLfloat white[] = {1.0, 1.0, 1.0, 1.0};
+const GLfloat light_pos[] = {0.0, 0.0, 0.0, 1.0};
+GLfloat const_att = 1.0;
+
 void MyDisplay() {
     
 
-    glClear(GL_COLOR_BUFFER_BIT);
-    glFrontFace(GL_CCW);
-    glEnable(GL_CULL_FACE);
-    glEnableClientState(GL_COLOR_ARRAY);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glColorPointer(3, GL_FLOAT, 0, MyColors);
-    glVertexPointer(3, GL_FLOAT, 0, MyVertices);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glRotatef(30.0, 1.0, 1.0, 1.0);
-    for (GLint i = 0; i < 6; i++)
-        glDrawElements(GL_POLYGON, 4, GL_UNSIGNED_BYTE, &MyVertexList[4*i]);
+    
+    glShadeModel(GL_SMOOTH);
+
+    
+    glTranslatef(-0.5, 0.0, 0.0);
+    glPushMatrix();
+    glLoadIdentity();
+    glTranslatef(0.5, 0.5, -0.7);
+    glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, const_att);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
+    
+    glDisable(GL_LIGHTING);
+    glColor3d(0.9, 0.9, 0.5);
+    glutSolidSphere(0.05, 10, 10);
+    glEnable(GL_LIGHTING);
+
+    glPopMatrix();
+    
+    gluQuadricDrawStyle(qobj, GLU_FILL);
+    gluQuadricNormals(qobj, GLU_SMOOTH);
+    gluQuadricOrientation(qobj, GLU_OUTSIDE);
+    gluQuadricTexture(qobj, GL_FALSE);
+    gluSphere(qobj, 0.3, 50, 50);
+    
+    glutSwapBuffers();
     glFlush();
 
 }
@@ -77,10 +102,10 @@ void reshape(int w, int h) {
     glViewport(0, 0, (GLsizei) w, (GLsizei) h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-//    gluPerspective(0, 10, 0.01f, 100.0f);
-//    gluPerspective(0.0, 1440.0/900.0*float(w)/float(h), 0.1, 100.0);
-    gluOrtho2D(-1 * w/2, w/2, -2 * h, 2*h);
+    
+    glOrtho(-2.5, 2.5, -2.5 * (GLfloat)h / (GLfloat)w, 2.5*(GLfloat)h/(GLfloat)w, -10.0, 10.0);
     glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
 }
 
@@ -91,18 +116,24 @@ void init() {
     glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
 }
 
+
 int main(int argc, char * argv[]) {
     // insert code here...
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGBA);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
-    glutInitWindowSize(400, 400);
+    glutInitWindowSize(800, 600);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("GLUT Sample");
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, white);
 //    glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
-    init();
-//    glutReshapeFunc(reshape);
+//    init();
+
     glutDisplayFunc(MyDisplay);
+    glutReshapeFunc(reshape);
     glutMainLoop();
     return 0;
 }
