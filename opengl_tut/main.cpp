@@ -66,33 +66,31 @@ void MyDisplay() {
     
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
     glShadeModel(GL_SMOOTH);
 
     
-    glTranslatef(-0.5, 0.0, 0.0);
-    glPushMatrix();
-    glLoadIdentity();
-    glTranslatef(0.5, 0.5, -0.7);
-    glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, const_att);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
+    glTranslatef(-0.4, 0.0, -2.0);
     
-    glDisable(GL_LIGHTING);
-    glColor3d(0.9, 0.9, 0.5);
-    glutSolidSphere(0.05, 10, 10);
-    glEnable(GL_LIGHTING);
-
+    glPushMatrix();
+        glLoadIdentity();
+        glTranslatef(0.5, 0.5, -1.1);
+        glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, const_att);
+        glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
+        
+        glDisable(GL_LIGHTING);
+        glColor3d(0.9, 0.9, 0.5);
+        glutSolidSphere(0.025, 10, 10);
+        glEnable(GL_LIGHTING);
     glPopMatrix();
     
     gluQuadricDrawStyle(qobj, GLU_FILL);
     gluQuadricNormals(qobj, GLU_SMOOTH);
     gluQuadricOrientation(qobj, GLU_OUTSIDE);
     gluQuadricTexture(qobj, GL_FALSE);
-    gluSphere(qobj, 0.3, 50, 50);
-    
+    gluSphere(qobj, 1.2, 50, 50);
     glutSwapBuffers();
     glFlush();
 
@@ -115,9 +113,9 @@ void reshape(int w, int h) {
     glLoadIdentity();
     
     // for glOrtho and glFrustum, because of aspect ratio of screen we have to apply this multiplication
-//    glOrtho(-3.0, 3.0, -3.0 * (GLfloat)h / (GLfloat)w, 3.0 * (GLfloat)h / (GLfloat)w, 0.0, 5.0);
+    glOrtho(-3.0, 3.0, -3.0 * (GLfloat)h / (GLfloat)w, 3.0 * (GLfloat)h / (GLfloat)w, 0.0, 10.0);
 //    glFrustum(-1.0, 1.0, -1.0 * (GLfloat)h / (GLfloat)w, 1.0 * (GLfloat)h / (GLfloat)w, 1.5, 20.0);
-    gluPerspective(60.0, (GLfloat) w / (GLfloat) h, 1.0, 20.0);
+//    gluPerspective(60.0, (GLfloat) w / (GLfloat) h, 1.0, 20.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
@@ -135,19 +133,20 @@ int main(int argc, char * argv[]) {
     // insert code here...
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-
     glutInitWindowSize(800, 600);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("GLUT Sample");
-//    glEnable(GL_LIGHTING);
-//    glEnable(GL_LIGHT0);
-//    glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
-//    glLightfv(GL_LIGHT0, GL_SPECULAR, white);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, white);
+    glEnable(GL_DEPTH_TEST);
+
 //    glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
 //    init();
 
-//    glutDisplayFunc(MyDisplay);
-    glutDisplayFunc(display);
+    glutDisplayFunc(MyDisplay);
+//    glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutMainLoop();
     return 0;
