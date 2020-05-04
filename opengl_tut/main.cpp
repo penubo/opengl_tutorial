@@ -22,33 +22,58 @@
 #include <iostream>
 #include <math.h>
 
-GLubyte rasters[24] = {
-    0xc0, 0x00, 0xc0, 0x00,
-    0xc0, 0x00, 0xc0, 0x00,
-    0xc0, 0x00, 0xff, 0x00,
-    0xff, 0x00, 0xc0, 0x00,
-    0xc0, 0x00, 0xc0, 0x00,
-    0xff, 0xc0, 0xff, 0xc0};
 
+GLfloat MyVertices[8][3] = {
+    {-0.25, -0.25, 0.25},
+    {-0.25, 0.25, 0.25},
+    {0.25, 0.25, 0.25},
+    {0.25, -0.25, 0.25},
+    {-0.25, -0.25, -0.25},
+    {-0.25, 0.25, -0.25},
+    {0.25, 0.25, -0.25},
+    {0.25, -0.25, -0.25}
+};
+
+GLfloat MyColors[8][3] = {
+    {0.2, 0.2, 0.2},
+    {1.0, 0.0, 0.0},
+    {1.0, 1.0, 0.0},
+    {0.0, 1.0, 0.0},
+    {0.0, 0.0, 1.0},
+    {1.0, 0.0, 1.0},
+    {1.0, 1.0, 1.0},
+    {0.0, 1.0, 1.0}
+};
+
+GLubyte MyVertexList[24] = {
+    0, 3, 2, 1,
+    2, 3, 7, 6,
+    0, 4, 7, 3,
+    1, 2, 6, 5,
+    4, 5, 6, 7,
+    0, 1, 5, 4
+};
 
 void MyDisplay() {
     
 
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.5, 0.4, 0.3);
-
-    glRasterPos2i(0, 0);
-
-    for (int i = 0; i <= 12; i++)
-        glBitmap (10, i, 0.0, 0.0, 11.0, 0.0, rasters);
-
-    glutSwapBuffers();
+    glFrontFace(GL_CCW);
+    glEnable(GL_CULL_FACE);
+    glEnableClientState(GL_COLOR_ARRAY);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glColorPointer(3, GL_FLOAT, 0, MyColors);
+    glVertexPointer(3, GL_FLOAT, 0, MyVertices);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glRotatef(30.0, 1.0, 1.0, 1.0);
+    for (GLint i = 0; i < 6; i++)
+        glDrawElements(GL_POLYGON, 4, GL_UNSIGNED_BYTE, &MyVertexList[4*i]);
     glFlush();
 
 }
 
-void reshape(int w, int h)
-{
+void reshape(int w, int h) {
     glViewport(0, 0, (GLsizei) w, (GLsizei) h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -59,6 +84,13 @@ void reshape(int w, int h)
 
 }
 
+void init() {
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+}
+
 int main(int argc, char * argv[]) {
     // insert code here...
     glutInit(&argc, argv);
@@ -67,8 +99,9 @@ int main(int argc, char * argv[]) {
     glutInitWindowSize(400, 400);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("GLUT Sample");
-    glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
-    glutReshapeFunc(reshape);
+//    glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
+    init();
+//    glutReshapeFunc(reshape);
     glutDisplayFunc(MyDisplay);
     glutMainLoop();
     return 0;
